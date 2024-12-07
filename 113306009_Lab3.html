@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>終極密碼</title>
+</head>
+<body>
+	<div id="PageTitle">
+		<h1 style="text-align: center;">113306009_Lab3_Number Guessing Game</h1>
+	</div>
+	<script type="text/javascript">
+		var random = Math.floor((Math.random() * 100) + 1);
+		var min = 1;
+		var max = 100;
+		var attempts = 7;
+		var correctGuess = false;
+		var div = document.createElement("div");
+		document.body.appendChild(div);
+
+		while (attempts > 0 && !correctGuess) {
+			
+			var num1 = window.prompt("請輸入" + min + "~" + max + "之間的數字" + "\n" + "還剩下 " + attempts + " 次機會");
+
+			if (isNaN(num1) || num1 === "" || num1 < min || num1 > max || num1 == 1 || num1 == 100) {
+				alert("請輸入有效範圍內的數字! (不能選擇範圍的上下限)");
+				continue;
+			}
+
+			num1 = parseInt(num1);
+
+			if (num1 === random) {
+				alert("恭喜你答對了!");
+				correctGuess = true;
+				div.innerHTML = '<div style="text-align: center; margin-top: 20px;"><img src="correct.jpg" alt="correct" style="width: 30%; height: auto;"></div>'; 
+				break;
+			} else if (num1 > random) {
+				max = num1; 
+				alert("你猜的數字太大了！\n正確答案在 " + min + " 到 " + num1 + " 之間");
+			} else if (num1 < random) {
+				min = num1;
+				alert("你猜的數字太小了！\n正確答案在 " + num1 + " 到 " + max + " 之間");
+			}
+			attempts--;
+			if (attempts === 0) {
+				alert("你已經沒有猜測機會了，正確答案是 " + random);
+				div.innerHTML = '<div style="text-align: center; margin-top: 20px;"><img src="wrong.jpg" alt="wrong" style="width: 50%; height: auto;"></div>'; 
+			}
+		}
+	</script>
+	
+</body>
+</html>
